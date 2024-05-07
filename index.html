@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,viewport-fit=cover">
+    <title>跳转页面</title>
+    <style>
+        /* 设置页面的字体和居中对齐 */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        /* 调整段落的上下间距 */
+        p {
+            margin-top: 0;
+            margin-bottom: 6px;
+        }
+        /* 调整图标与文本之间的间距 */
+        #icon {
+            margin-bottom: 20px;
+        }
+        /* 设置提示文本的样式 */
+        #tips {
+            font-size: 30px;
+            line-height: 30px;
+            color: #888;
+        }
+        /* 设置复制链接按钮的样式 */
+        #copy-link-button {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            background-color: rgb(0, 135, 252);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        (function() {
+            // 获取当前页面的URL和用户代理信息
+            var url = document.location.toString();
+            var urlParmStr = url.slice(url.indexOf('=')+1);
+            var ua = navigator.userAgent.toLowerCase();
+            var isQQ = ua.indexOf('qq') != -1;
+            var isWeixin = ua.indexOf('micromessenger') != -1;
+            var isAndroid = ua.indexOf('android') != -1;
+            var isIos = (ua.indexOf('iphone') != -1) || (ua.indexOf('ipad') != -1);
+            
+            // 如果在微信或QQ中打开，则显示提示信息
+            if(isWeixin || isQQ) {
+                var notice_openBrowser = '请点击右上角，通过浏览器打开本页面。';
+                document.getElementById("tips").innerHTML = notice_openBrowser;
+            } else {
+                // 如果不是在微信或QQ中打开，则尝试直接跳转
+                if (urlParmStr == url){
+                    urlParmStr = "https://mlho.net";
+                }
+                console.log(urlParmStr);
+                location.href = urlParmStr;
+            }      
+        })();
+    </script>
+</head>
+<body>
+    <!-- 显示图标和提示信息 -->
+    <div id="icon">
+        <svg t="1710585243467" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4358" width="200" height="200"><path d="M943.798 653.746c-8.204-7.333-19.016-11.374-30.437-11.374-14.296 0-27.943 6.08-37.444 16.681-91.716 106.856-224.395 168.194-363.925 168.194-140.53 0-273.215-61.351-364.031-168.317-9.165-10.763-22.292-16.942-36.014-16.942-11.251 0-22.12 4.175-30.606 11.759-10.123 8.6-16.111 20.257-16.981 32.942-0.847 12.384 3.298 24.35 11.671 33.693 110.401 128.613 269.694 202.321 437.12 202.321 168.465 0 327.328-73.28 435.855-201.055 17.151-20.15 14.863-49.969-5.208-67.902zM786.373 395.424c44.518 0 80.734-37.071 80.734-82.637V192.105c0-44.798-36.972-82.646-80.734-82.646-43.766 0-80.734 37.848-80.734 82.646v120.681c0 44.793 36.968 82.638 80.734 82.638zM238.467 395.424c43.771 0 80.746-37.845 80.746-82.637V192.105c0-44.798-36.975-82.646-80.746-82.646-43.761 0-80.731 37.848-80.731 82.646v120.681c-0.001 44.793 36.97 82.638 80.731 82.638z" fill="#272536" p-id="4359"></path></svg>
+    </div>
+    <div id="tips">
+        <p>请点击右上角，通过浏览器打开本页面。</p>
+        <p>or</p>
+        <p>复制链接到浏览器打开</p>
+    </div>
+    <!-- 复制链接按钮 -->
+    <button id="copy-link-button" onclick="copyLink()">点此复制链接</button>
+    <script>
+        // 复制链接到剪贴板的函数
+        function copyLink() {
+            var dummy = document.createElement('input'),
+            text = window.location.href;
+
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+
+            // 显示复制成功的提示
+            alert('链接复制成功！');
+        }
+    </script>
+    <!-- 第三方统计代码省 -->
+</body>
+</html>
